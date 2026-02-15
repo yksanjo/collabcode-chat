@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabCode Chat - Pair Programming with Video</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Segoe+UI:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-comments"></i>
+                    <span>CollabCode Chat</span>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="room-info">
+                    <span class="room-label">Session:</span>
+                    <span class="room-id" id="roomId">---</span>
+                    <button class="btn-icon btn-copy" id="copyRoomLink" title="Copy Link">
+                        <i class="fas fa-link"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="participants" id="participants"></div>
+                <div class="connection-status">
+                    <span class="status-dot disconnected"></span>
+                    <span class="status-text">Offline</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Editor Area -->
+            <main class="editor-area">
+                <div class="editor-wrapper" id="editorWrapper">
+                    <div id="monacoEditor"></div>
+                </div>
+            </main>
+
+            <!-- Video Panel -->
+            <aside class="video-panel" id="videoPanel">
+                <div class="video-header">
+                    <span>Video Chat</span>
+                    <div class="video-actions-mini">
+                        <button class="btn-icon" id="toggleVideo" title="Toggle Video">
+                            <i class="fas fa-video"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-grid" id="videoGrid">
+                    <div class="video-container local" id="localVideoContainer">
+                        <video id="localVideo" autoplay muted playsinline></video>
+                        <div class="video-overlay">
+                            <span class="participant-name">You</span>
+                        </div>
+                        <div class="video-controls">
+                            <button class="btn-video-control" id="toggleMic" title="Toggle Mic">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button class="btn-video-control" id="toggleCamera" title="Toggle Camera">
+                                <i class="fas fa-video"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-placeholder" id="remoteVideoPlaceholder" style="display:none">
+                        <i class="fas fa-user"></i>
+                        <span>Waiting for partner...</span>
+                    </div>
+                </div>
+                <div class="video-start">
+                    <button class="btn btn-primary btn-full" id="startVideo">
+                        <i class="fas fa-video"></i> Start Video
+                    </button>
+                </div>
+                <!-- Chat -->
+                <div class="chat-section">
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Type a message...">
+                        <button class="btn-icon" id="sendMessage">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span class="status-item" id="cursorPosition">Ln 1, Col 1</span>
+                <span class="status-item" id="languageMode">JavaScript</span>
+            </div>
+            <div class="status-center">
+                <span class="status-item" id="partnerStatus">
+                    <i class="fas fa-user-friends"></i> No partner
+                </span>
+            </div>
+            <div class="status-right">
+                <span class="status-item">UTF-8</span>
+                <span class="status-item">Spaces: 2</span>
+            </div>
+        </footer>
+
+        <!-- Welcome Modal -->
+        <div class="modal" id="welcomeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-comments"></i> CollabCode Chat</h2>
+                    <p class="text-muted">Pair programming with video chat</p>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="usernameInput" placeholder="Enter your name" value="Anonymous">
+                    </div>
+                    <div class="form-group">
+                        <label>Join or Create Session</label>
+                        <div class="join-options">
+                            <button class="btn btn-primary" id="createRoom">
+                                <i class="fas fa-plus"></i> New Session
+                            </button>
+                            <div class="divider"><span>or</span></div>
+                            <input type="text" id="roomCodeInput" placeholder="Enter session code">
+                            <button class="btn btn-secondary" id="joinRoom">
+                                <i class="fas fa-sign-in-alt"></i> Join
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
