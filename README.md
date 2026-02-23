@@ -1,5 +1,12 @@
 # collabcode-chat
 
+Production-grade project scaffold focused on reliability, maintainability, and fast onboarding.
+
+[![CI](https://img.shields.io/github/actions/workflow/status/yksanjo/collabcode-chat/ci.yml?branch=main&label=ci)](https://github.com/yksanjo/collabcode-chat/actions)
+![License](https://img.shields.io/github/license/yksanjo/collabcode-chat)
+![Last Commit](https://img.shields.io/github/last-commit/yksanjo/collabcode-chat)
+![Repo Size](https://img.shields.io/github/repo-size/yksanjo/collabcode-chat)
+
 ## Detailed Description
 
 collabcode-chat is maintained as an industry-grade software project with production-ready engineering practices.  
